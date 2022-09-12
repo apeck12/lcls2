@@ -341,3 +341,16 @@ class cspad_raw_1_2_3(DetectorImpl):
             geometry_access.load_pars_from_str(geometry_string)
         return geometry_access
 
+# for exafel demo showcasing btx, 2022
+class rayonix_raw_0_0_2(DetectorImpl):
+    def __init__(self, *args):
+        super(rayonix_raw_0_0_2, self).__init__(*args)
+    def calib(self, evt):
+        segs = self._segments(evt)
+        if segs is None:
+            return None
+        return segs[2].calib
+    def raw(self, evt):
+        return self._segments(evt)[0].raw
+    def photonEnergy(self, evt):
+        return self._segments(evt)[0].photonEnergy
